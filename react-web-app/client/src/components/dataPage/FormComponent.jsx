@@ -14,15 +14,15 @@ export default class FormComponent extends Component {
 
   sendToServer()
   {
+
+    //сохранить путь POST запроса здесь
+    //при срабатывании переходит на страницу appData. Надо, чтоб оставалось здесь
     if(this.props.formMode=="ADD")
     {
-
-      alert("Will Add")
       //логика по отправке запроса к серверу на добавление
     }
     else if(this.props.formMode=="CHG")
     {
-      alert("Will Change")
       //логика по отправке запроса к серверу на изменение
     }
   }
@@ -31,10 +31,13 @@ export default class FormComponent extends Component {
       return (
         <div>
           {this.props.formMode}
-          <input type="text"/>
-          <input type="text"/>
-          <input type="text"/>
-          <button onClick={this.sendToServer}>Save</button>
+          <form action="/addData" method="post">
+            <label>Поле 1</label><br/>
+            <input type="text" name="NumOne" /><br/><br/>
+            <label>Поле 2</label><br/>
+            <input type="number" name="NumTwo" /><br/><br/>
+            <input type="submit" value="Send" onClick={this.sendToServer} />
+          </form>
        </div>
       );
     }
