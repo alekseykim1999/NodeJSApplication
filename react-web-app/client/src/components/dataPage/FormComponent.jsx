@@ -8,22 +8,26 @@ export default class FormComponent extends Component {
   {
       super(props);
       this.sendToServer = this.sendToServer.bind(this)
+      
+      this.state = {
+        path : "",
     
+      }
   }
 
 
   sendToServer()
   {
 
-    //сохранить путь POST запроса здесь
+    
     //при срабатывании переходит на страницу appData. Надо, чтоб оставалось здесь
     if(this.props.formMode=="ADD")
     {
-      //логика по отправке запроса к серверу на добавление
+      this.setState({path:"/addData"});
     }
     else if(this.props.formMode=="CHG")
     {
-      //логика по отправке запроса к серверу на изменение
+      this.setState({path:"/chgData"});
     }
   }
   render()
@@ -31,7 +35,7 @@ export default class FormComponent extends Component {
       return (
         <div>
           {this.props.formMode}
-          <form action="/addData" method="post">
+          <form action={this.state.path} method="post">
             <label>Поле 1</label><br/>
             <input type="text" name="NumOne" /><br/><br/>
             <label>Поле 2</label><br/>

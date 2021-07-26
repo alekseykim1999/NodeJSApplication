@@ -16,5 +16,12 @@ app.get('/express_backend', (req,res) =>
 app.post("/addData", urlencodedParser, function (request, response) {
     if(!request.body) return response.sendStatus(400);
     console.log(request.body);
-    response.send(`${request.body.NumOne} - ${request.body.NumTwo}`);
+    response.send(`${request.body.NumOne} - ${request.body.NumTwo} ADD MODE`);
+});
+
+
+app.post("/chgData", urlencodedParser, function (request, response) {
+    if(!request.body) return response.sendStatus(400);
+    console.log(request.body); //отобразитсяя в консоли компьютера
+    response.send(`${request.body.NumOne} - ${request.body.NumTwo} CHG MODE`);
 });
