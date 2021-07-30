@@ -1,2 +1,26 @@
 npm run server - запуск backend сервера (обработка запросов, доступ к БД)
 npm run client - запуск frontend сервера (отрисовка компонетов)
+npm run db - запуск mongodb сервера
+
+
+http://localhost:5000/express_backend - путь к проверке сервера
+
+Диск C, папка mongodb - сервер MongoDB
+
+C:\mongodb\bin\mongod - запуск сервера MongoDB (открыть cmd через админа)
+(запустить перед работой основного проекта)
+
+C:\mongodb\bin\mongo.exe - путь к оболочке MongoDB, консольный интерфейс-клиент для ввода команд
+и взаимодействия с БД
+
+-Команды
+use Users - создать БД
+db.Students.save({name:"Tom", age : "21", university : "ENU"}) - добавить коллекцию и документ
+(аналог таблицы и записи)
+db.Students.find() - вывести все данные
+
+Закрыть сервер MongoDB - ctrl + C в консоли
+
+Нужно также создать папку по пути
+C:\data\db
+

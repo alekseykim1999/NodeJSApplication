@@ -12,7 +12,7 @@ export default class DataPage extends Component {
       super(props);
       
       this.state = {
-        data : null,
+        data : [],
         mode: "ZERO"
     
       }
@@ -24,8 +24,12 @@ export default class DataPage extends Component {
   
     componentDidMount()
     {
-      this.callBackendAPI().
-      then(res=>this.setState({data:res.express})).
+      this.callBackendAPI()
+      .then(result => {
+        this.setState({
+          data: result
+        });
+      }).
       catch(err=>console.log(err))
     }
   
@@ -51,8 +55,7 @@ export default class DataPage extends Component {
     {
       const response = await fetch('/express_backend');
       const body =  await response.json();
-  
-  
+
       if(response.status !== 200)
       {
         throw Error(body.message)
@@ -67,7 +70,7 @@ export default class DataPage extends Component {
       let component;
       const mode = this.state.mode;
 
-      console.log(mode)
+    
       if(mode=="ZERO")
         component=null
       else
@@ -77,7 +80,11 @@ export default class DataPage extends Component {
      
       return (
         <div>
-          <p className="App-intro">{this.state.data}</p>
+         
+          {
+            this.state.data.map(user=>
+              <h1>{user.name}  {user.age} {user.university}</h1>)
+          }
           <button onClick={this.addDataClick}>Add Data</button>
           <button onClick={this.changeDataClick}>Change Data</button>
           <button onClick={this.removeDataClick}> Remove Data</button>
