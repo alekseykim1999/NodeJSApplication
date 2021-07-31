@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import FormComponent from './FormComponent';
-
+import EditComponent from './EditComponent';
+import AddComponent from './AddComponent';
+import { ReactDOM } from 'react';
 export default class DataPage extends Component {
 
 
@@ -13,12 +14,14 @@ export default class DataPage extends Component {
       
       this.state = {
         data : [],
-        mode: "ZERO"
+        mode: "ZERO",
+        selectedUser : undefined
     
       }
       this.addDataClick = this.addDataClick.bind(this)
       this.changeDataClick = this.changeDataClick.bind(this)
       this.removeDataClick = this.removeDataClick.bind(this)
+      this.handleClick = this.handleClick.bind(this)
   }
     
   
@@ -64,6 +67,20 @@ export default class DataPage extends Component {
       return body
     }
 
+
+    handleClick(e) 
+    {
+      var text = e.currentTarget.innerHTML;
+      var arrayOfStrings = text.split("-");
+
+    
+      var currentUser = {
+        name : arrayOfStrings[0],
+        age : arrayOfStrings[1],
+        university : arrayOfStrings[2]
+      }
+      this.setState({selectedUser : currentUser});
+    }
     
     render()
     {
@@ -73,18 +90,31 @@ export default class DataPage extends Component {
     
       if(mode=="ZERO")
         component=null
-      else
+      else if(mode=="RMV")
       {
-          component=<FormComponent formMode={this.state.mode}/>
+        component=<div>Select User To Be Deleted</div>
       }
+      else if(mode=="CHG")
+      {
+        component=<EditComponent user={this.state.selectedUser}/>
+      }
+      else if(mode=="ADD")
+      {
+        component=<AddComponent />
+      }
+     
      
       return (
         <div>
-         
+          <br/>
           {
             this.state.data.map(user=>
-              <h1>{user.name}  {user.age} {user.university}</h1>)
+              <div>
+              <a href="#" onClick={this.handleClick}>{user.name}-{user.age}-{user.university}</a>
+              <br/>
+              </div>)
           }
+          <br/>
           <button onClick={this.addDataClick}>Add Data</button>
           <button onClick={this.changeDataClick}>Change Data</button>
           <button onClick={this.removeDataClick}> Remove Data</button>
