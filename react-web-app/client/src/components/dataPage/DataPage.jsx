@@ -75,13 +75,33 @@ export default class DataPage extends Component {
 
     
       var currentUser = {
-        name : arrayOfStrings[0],
-        age : arrayOfStrings[1],
-        university : arrayOfStrings[2]
+        _id :arrayOfStrings[0],
+        name : arrayOfStrings[1],
+        age : arrayOfStrings[2],
+        university : arrayOfStrings[3]
       }
       this.setState({selectedUser : currentUser});
     }
     
+
+
+    async deleteUser(id)
+    {
+
+      if(id!=null && id!=undefined)
+      {
+        const response = await fetch("/deleteData/" + id, {
+          method: "DELETE",
+          headers: { "Accept": "application/json" }
+        }); 
+      }
+      else{
+        alert("Выберите пользователя")
+      }
+     
+    
+        
+    }
     render()
     {
       let component;
@@ -91,13 +111,12 @@ export default class DataPage extends Component {
       if(mode=="ZERO")
         component=null
       else if(mode=="RMV")
-      {
-        component=<div>Select User To Be Deleted</div>
-      }
+        component=<div>
+          <h1>User To Delete - {this.state.selectedUser?._id}</h1>
+          <button onClick={() => this.deleteUser(this.state.selectedUser?._id)}>Delete</button>
+          </div>
       else if(mode=="CHG")
-      {
         component=<EditComponent user={this.state.selectedUser}/>
-      }
       else if(mode=="ADD")
       {
         component=<AddComponent />
@@ -110,7 +129,7 @@ export default class DataPage extends Component {
           {
             this.state.data.map(user=>
               <div>
-              <a href="#" onClick={this.handleClick}>{user.name}-{user.age}-{user.university}</a>
+              <a href="#" onClick={this.handleClick}>{user._id}-{user.name}-{user.age}-{user.university}</a>
               <br/>
               </div>)
           }

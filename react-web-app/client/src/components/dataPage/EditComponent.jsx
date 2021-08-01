@@ -8,9 +8,9 @@ export default class EditComponent extends Component {
       super(props);
       this.state = {
         path : "/chgData",
-        name:this.props.user.name,
-        age:this.props.user.age,
-        university:this.props.user.university
+        name:this.props.user?.name,
+        age:this.props.user?.age,
+        university:this.props.user?.university
       }
       this.onTodoChange = this.onTodoChange.bind(this)
   }
@@ -30,9 +30,9 @@ export default class EditComponent extends Component {
             <label>Name</label><br/>
             <input type="text" name="NumOne" onChange={this.onTodoChange} value={this.state.name}/><br/><br/>
             <label>Age</label><br/>
-            <input type="number" name="NumTwo" /><br/><br/>
+            <input type="number" name="NumTwo" value={this.state.age}/><br/><br/>
             <label>University</label><br/>
-            <input type="text" name="NumThree" /><br/><br/>
+            <input type="text" name="NumThree" value={this.state.university}/><br/><br/>
             <input type="submit" value="Send" />
           </form>
        </div>

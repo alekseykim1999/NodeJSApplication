@@ -39,25 +39,38 @@ app.get('/express_backend', (req, res) =>
         res.send(users)
     });
 
-
-    /* res.send({
-        express: 'YOU EXPRESS BACKEND IS CONNECTED TO REACT. ALL WORK'
-    }) */
 })
 
 app.post("/addData", urlencodedParser, function (request, response) {
     if (!request.body) return response.sendStatus(400);
-    console.log(request.body);
-    response.send(`${request.body.NumOne} - ${request.body.NumTwo} ADD MODE`);
+    const collection = request.app.locals.collection;
+    let user = {name: request.body.NumOne, age: request.body.NumTwo, university : request.body.NumThree};
+    collection.insertOne(user, function(err, result){
+        if(err){ 
+            return console.log(err);
+        }
+    });
 });
 
 
-app.post("/chgData", urlencodedParser, function (request, response) {
+app.put("/chgData", urlencodedParser, function (request, response) {
     if (!request.body) return response.sendStatus(400);
-    console.log(request.body); //отобразитсяя в консоли компьютера
     response.send(`${request.body.NumOne} - ${request.body.NumTwo} CHG MODE`);
 });
 
+app.delete("/deleteData/:id", function(req, res){
+        
+    const id = req.params.id;
+    console.log(id)
+    const collection = req.app.locals.collection;
+    collection.findOneAndDelete({_id: id}, function(err, result){
+               
+        if(err) return console.log(err);    
+        let user = result.value;
+        сonsole.log(user)
+        res.send(user);
+    });
+});
 
 process.on("SIGINT", () => {
     dbClient.close();

@@ -12,15 +12,11 @@ export default class AddComponent extends Component {
         age:"",
         university:""
       }
-      this.onTodoChange = this.onTodoChange.bind(this)
+      
   }
 
   
-  onTodoChange(event) 
-  {
-        this.setState({name: event.target.value});
-  }
-
+ 
   render()
   {
       return (
@@ -28,7 +24,7 @@ export default class AddComponent extends Component {
           <h1>Add Data</h1>
           <form action={this.state.path} method="post">
             <label>Name</label><br/>
-            <input type="text" name="NumOne" onChange={this.onTodoChange} value={this.state.name}/><br/><br/>
+            <input type="text" name="NumOne" /><br/><br/>
             <label>Age</label><br/>
             <input type="number" name="NumTwo" /><br/><br/>
             <label>University</label><br/>
