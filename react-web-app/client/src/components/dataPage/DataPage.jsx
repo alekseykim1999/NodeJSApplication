@@ -3,11 +3,8 @@ import EditComponent from './EditComponent';
 import AddComponent from './AddComponent';
 import { ReactDOM } from 'react';
 import { ZERO_MODE, ADD_MODE, RMV_MODE, CHG_MODE } from '../../const/const';
-export default class DataPage extends Component {
-
-
-  
-
+export default class DataPage extends Component 
+{
 
   constructor(props)
   {
@@ -19,6 +16,7 @@ export default class DataPage extends Component {
         selectedUser : undefined
     
       }
+
       this.addDataClick = this.addDataClick.bind(this)
       this.changeDataClick = this.changeDataClick.bind(this)
       this.removeDataClick = this.removeDataClick.bind(this)
@@ -41,7 +39,6 @@ export default class DataPage extends Component {
 
     addDataClick()
     {
-      
       this.setState({mode : ADD_MODE});
     }
 
@@ -73,9 +70,8 @@ export default class DataPage extends Component {
     {
       var text = e.currentTarget.innerHTML;
       var arrayOfStrings = text.split("-");
-
-    
-      var currentUser = {
+      var currentUser = 
+      {
         _id :arrayOfStrings[0],
         name : arrayOfStrings[1],
         age : arrayOfStrings[2],
@@ -88,7 +84,6 @@ export default class DataPage extends Component {
 
     async deleteUser(id)
     {
-
       if(id!=null && id!=undefined)
       {
 
@@ -99,13 +94,15 @@ export default class DataPage extends Component {
         window.location.reload();
       
       }
-      else{
-        alert("Выберите пользователя")
+      else
+      {
+        alert("User Is Not Selected!")
       }
      
     
         
     }
+
     render()
     {
       let component;
@@ -119,9 +116,9 @@ export default class DataPage extends Component {
           break;
         case RMV_MODE:
           component=<div>
-          <h1>User To Delete - {this.state.selectedUser?._id}</h1>
-          <button onClick={() => this.deleteUser(this.state.selectedUser?._id)}>Delete</button>
-          </div>
+                      <h1>User To Delete {this.state.selectedUser?._id}</h1>
+                        <button onClick={() => this.deleteUser(this.state.selectedUser?._id)}>Delete</button>
+                    </div>
           break;
         default:
           component=null
@@ -134,20 +131,19 @@ export default class DataPage extends Component {
           {
             this.state.data.map(user=>
               <div>
-              <a href="#" onClick={this.handleClick}>{user._id}-{user.name}-{user.age}-{user.university}</a>
-              <br/>
+                <a href="#" onClick={this.handleClick}>{user._id}-{user.name}-{user.age}-{user.university}</a>
+                <br/>
               </div>)
           }
           <br/>
-          <button onClick={this.addDataClick}>Add Data</button>
-          <button onClick={this.changeDataClick}>Change Data</button>
-          <button onClick={this.removeDataClick}> Remove Data</button>
+            <button onClick={this.addDataClick}>Add Data</button>
+            <button onClick={this.changeDataClick}>Change Data</button>
+            <button onClick={this.removeDataClick}> Remove Data</button>
           <div>
             {component}
           </div>
        </div>
       );
-    }
-    
+    } 
 }
   

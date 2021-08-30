@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default function AddComponent() {
   
-  function AddFormistener(e)
+  function AddFormListener(e)
   {
     e.preventDefault();
     const form = document.forms["AddForm"];
@@ -13,9 +13,10 @@ export default function AddComponent() {
   }
 
 
-  async function CreateUser(userName, userAge, userUniversity) {
-  
-    const response = await fetch("/addData", {
+  async function CreateUser(userName, userAge, userUniversity) 
+  {
+    const response = await fetch("/addData", 
+    {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -24,24 +25,27 @@ export default function AddComponent() {
             university: userUniversity
         })
     });
-    if (response.ok === true) {
+    if (response.ok === true) 
+    {
         const user = await response.json();
         window.location.reload();
     }
   }
+
+
   return (
         <div>
           <h1>Add Data</h1>
-          <form name = "AddForm" onSubmit={AddFormistener}>
+          <form name="AddForm" onSubmit={AddFormListener}>
             <label>Name</label><br/>
             <input type="text" name="NumOne" /><br/><br/>
             <label>Age</label><br/>
             <input type="number" name="NumTwo" /><br/><br/>
             <label>University</label><br/>
             <input type="text" name="NumThree" /><br/><br/>
-            <input type="submit" value="Send" />
+            <input type="submit" value="Add" />
           </form>
        </div>
-      );
+  );
 }
   

@@ -1,43 +1,63 @@
 import React, { Component } from 'react';
 
-export default class EditComponent extends Component {
+const EditComponent = (props) => {
 
-
-  constructor(props)
+  function EditFormListener(e)
   {
-      super(props);
-      this.state = {
-        path : "/chgData",
-        name:this.props.user?.name,
-        age:this.props.user?.age,
-        university:this.props.user?.university
+    e.preventDefault();
+    const form = document.forms["EditForm"];
+    const name = form.elements["NumOne"].value;
+    const age = form.elements["NumTwo"].value;
+    const university = form.elements["NumThree"].value;
+    const id = props.user?._id;
+    EditUser(id, name, age, university);
+  }
+
+
+  async function EditUser(id, userName, userAge, userUniversity) 
+  {
+
+    if(id!=null && id!=undefined)
+    {
+      const response = await fetch("/chgData/" + id, 
+      {
+          method: "PUT",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({
+              name: userName,
+              age: parseInt(userAge, 10),
+              university: userUniversity
+          })
+      });
+      if (response.ok === true) 
+      {
+          window.location.reload();
       }
-      this.onTodoChange = this.onTodoChange.bind(this)
-  }
-
+    }
+    else{
+      alert("User Is Not Selected!")
+    }
   
-  onTodoChange(event) 
-  {
-        this.setState({name: event.target.value});
   }
 
-  render()
-  {
-      return (
+
+  return (
         <div>
-          <h1>Edit Data</h1>
-          <form action={this.state.path} method="post">
+          <h1>Edit Data for ID {props.user?._id}</h1>
+          <form name="EditForm" onSubmit={EditFormListener}>
             <label>Name</label><br/>
-            <input type="text" name="NumOne" onChange={this.onTodoChange} value={this.state.name}/><br/><br/>
+            <input type="text" name="NumOne" defaultValue={props.user?.name} 
+            /><br/><br/>
             <label>Age</label><br/>
-            <input type="number" name="NumTwo" value={this.state.age}/><br/><br/>
+            <input type="number" name="NumTwo" defaultValue={props.user?.age}/><br/><br/>
             <label>University</label><br/>
-            <input type="text" name="NumThree" value={this.state.university}/><br/><br/>
-            <input type="submit" value="Send" />
+            <input type="text" name="NumThree" defaultValue={props.user?.university}/><br/><br/>
+            <input type="submit" value="Edit" />
           </form>
        </div>
-      );
-    }
+  );
     
 }
+
+export default EditComponent;
   
