@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import EditComponent from './EditComponent';
 import AddComponent from './AddComponent';
 import { ReactDOM } from 'react';
+import { ZERO_MODE, ADD_MODE, RMV_MODE, CHG_MODE } from '../../const/const';
 export default class DataPage extends Component {
 
 
@@ -14,7 +15,7 @@ export default class DataPage extends Component {
       
       this.state = {
         data : [],
-        mode: "ZERO",
+        mode: ZERO_MODE,
         selectedUser : undefined
     
       }
@@ -41,16 +42,16 @@ export default class DataPage extends Component {
     addDataClick()
     {
       
-      this.setState({mode : "ADD"});
+      this.setState({mode : ADD_MODE});
     }
 
     changeDataClick()
     {
-      this.setState({mode : "CHG"});
+      this.setState({mode : CHG_MODE});
     }
     removeDataClick()
     {
-      this.setState({mode : "RMV"});
+      this.setState({mode : RMV_MODE});
     }
   
   
@@ -90,10 +91,13 @@ export default class DataPage extends Component {
 
       if(id!=null && id!=undefined)
       {
+
         const response = await fetch("/deleteData/" + id, {
           method: "DELETE",
           headers: { "Accept": "application/json" }
         }); 
+        window.location.reload();
+      
       }
       else{
         alert("Выберите пользователя")
@@ -106,23 +110,24 @@ export default class DataPage extends Component {
     {
       let component;
       const mode = this.state.mode;
-
-    
-      if(mode=="ZERO")
-        component=null
-      else if(mode=="RMV")
-        component=<div>
+      switch (mode) {
+        case ADD_MODE:
+          component=<AddComponent />
+          break;
+        case CHG_MODE:
+          component=<EditComponent user={this.state.selectedUser}/>
+          break;
+        case RMV_MODE:
+          component=<div>
           <h1>User To Delete - {this.state.selectedUser?._id}</h1>
           <button onClick={() => this.deleteUser(this.state.selectedUser?._id)}>Delete</button>
           </div>
-      else if(mode=="CHG")
-        component=<EditComponent user={this.state.selectedUser}/>
-      else if(mode=="ADD")
-      {
-        component=<AddComponent />
+          break;
+        default:
+          component=null
+          break;
       }
-     
-     
+
       return (
         <div>
           <br/>
@@ -140,7 +145,6 @@ export default class DataPage extends Component {
           <div>
             {component}
           </div>
-         
        </div>
       );
     }

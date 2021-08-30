@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
 
-export default class AddComponent extends Component {
-
-
-  constructor(props)
+export default function AddComponent() {
+  
+  function AddFormistener(e)
   {
-      super(props);
-      this.state = {
-        path : "/addData",
-        name:"",
-        age:"",
-        university:""
-      }
-      
+    e.preventDefault();
+    const form = document.forms["AddForm"];
+    const name = form.elements["NumOne"].value;
+    const age = form.elements["NumTwo"].value;
+    const university = form.elements["NumThree"].value;
+    CreateUser(name, age, university);
   }
 
+
+  async function CreateUser(userName, userAge, userUniversity) {
   
- 
-  render()
-  {
-      return (
+    const response = await fetch("/addData", {
+        method: "POST",
+        headers: { "Accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+            name: userName,
+            age: parseInt(userAge, 10),
+            university: userUniversity
+        })
+    });
+    if (response.ok === true) {
+        const user = await response.json();
+        window.location.reload();
+    }
+  }
+  return (
         <div>
           <h1>Add Data</h1>
-          <form action={this.state.path} method="post">
+          <form name = "AddForm" onSubmit={AddFormistener}>
             <label>Name</label><br/>
             <input type="text" name="NumOne" /><br/><br/>
             <label>Age</label><br/>
@@ -33,7 +43,5 @@ export default class AddComponent extends Component {
           </form>
        </div>
       );
-    }
-    
 }
   

@@ -1,10 +1,9 @@
 const express = require('express');
 const app = express();
 const MongoClient = require("mongodb").MongoClient;
-const objectId = require("mongodb").ObjectID;
+const objectId = require("mongodb").ObjectId;
 const bodyParser = require("body-parser");
-
-
+const jsonParser = express.json();
 
 
 
@@ -41,15 +40,21 @@ app.get('/express_backend', (req, res) =>
 
 })
 
-app.post("/addData", urlencodedParser, function (request, response) {
-    if (!request.body) return response.sendStatus(400);
+app.post("/addData", jsonParser, async(request, response) => {
+    if (!request.body) 
+        return response.sendStatus(400);
     const collection = request.app.locals.collection;
-    let user = {name: request.body.NumOne, age: request.body.NumTwo, university : request.body.NumThree};
-    collection.insertOne(user, function(err, result){
-        if(err){ 
-            return console.log(err);
-        }
-    });
+
+    const userName = request.body.name;
+    console.log(userName)
+    const userAge = request.body.age;
+    const userEd = request.body.university;
+    const user = {name: userName, age: userAge, university : userEd};
+    try{
+        await collection.insertOne(user);
+        response.send(user);
+    }
+    catch(err){return console.log(err);}
 });
 
 
@@ -58,18 +63,19 @@ app.put("/chgData", urlencodedParser, function (request, response) {
     response.send(`${request.body.NumOne} - ${request.body.NumTwo} CHG MODE`);
 });
 
-app.delete("/deleteData/:id", function(req, res){
+app.delete("/deleteData/:id", async(req, res)=>{
         
-    const id = req.params.id;
-    console.log(id)
+    const id = new objectId(req.params.id);
     const collection = req.app.locals.collection;
-    collection.findOneAndDelete({_id: id}, function(err, result){
-               
-        if(err) return console.log(err);    
-        let user = result.value;
-        сonsole.log(user)
+    try{
+        const result = await collection.findOneAndDelete({_id: id});
+        const user = result.value;
         res.send(user);
-    });
+    }
+    catch(err)
+    {
+        return console.log(err);
+    }
 });
 
 process.on("SIGINT", () => {
