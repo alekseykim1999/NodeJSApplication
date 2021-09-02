@@ -43,7 +43,7 @@ const EditComponent = (props) => {
 
   return (
         <div>
-          <h1>Edit Data for ID {props.user?._id}</h1>
+          <label>Edit Data for ID {props.user?._id}</label>
           <form name="EditForm" onSubmit={EditFormListener}>
             <label>Name</label><br/>
             <input type="text" name="NumOne" defaultValue={props.user?.name} 
@@ -52,7 +52,7 @@ const EditComponent = (props) => {
             <input type="number" name="NumTwo" defaultValue={props.user?.age}/><br/><br/>
             <label>University</label><br/>
             <input type="text" name="NumThree" defaultValue={props.user?.university}/><br/><br/>
-            <input type="submit" value="Edit" />
+            <input type="submit" value="Edit Student" className="btn btn-success" />
           </form>
        </div>
   );

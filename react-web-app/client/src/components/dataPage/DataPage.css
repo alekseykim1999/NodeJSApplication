@@ -3,3 +3,37 @@
     position: relative;
     min-height: 80%;
 }
+
+.List{
+    display:inline-block;
+    margin-left: 40px;
+    margin-top: 40px;
+    width:500px;
+}
+.ListItem :hover
+{
+    background-color:red;
+   
+    
+}
+.Student
+{
+    text-decoration: none;
+}
+
+
+.WorkBlock
+{
+    position:absolute;
+    display:inline-block;
+    margin-left: 160px;
+    margin-top: -270px;
+}
+
+.FormBlock
+{
+    position:absolute;
+    display:inline-block;
+    margin-left: 160px;
+    margin-top: -215px;
+}

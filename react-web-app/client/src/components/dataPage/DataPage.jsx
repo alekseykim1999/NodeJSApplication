@@ -111,15 +111,16 @@ export default class DataPage extends Component
       const mode = this.state.mode;
       switch (mode) {
         case ADD_MODE:
-          component=<AddComponent />
+          component=<AddComponent/>
           break;
         case CHG_MODE:
           component=<EditComponent user={this.state.selectedUser}/>
           break;
         case RMV_MODE:
           component=<div>
-                      <h1>User To Delete {this.state.selectedUser?._id}</h1>
-                        <button onClick={() => this.deleteUser(this.state.selectedUser?._id)}>Delete</button>
+                      <label>User To Delete {this.state.selectedUser?._id}</label>
+                      <br></br>
+                        <Button className="btn btn-danger" onClick={() => this.deleteUser(this.state.selectedUser?._id)}>Delete</Button>
                     </div>
           break;
         default:
@@ -130,18 +131,21 @@ export default class DataPage extends Component
       return (
         <div className="DataPage">
           <br/>
+          <ul className="list-group List">
           {
             this.state.data.map(user=>
-              <div>
-                <a href="#" onClick={this.handleClick}>{user._id}-{user.name}-{user.age}-{user.university}</a>
-                <br/>
-              </div>)
+              <li className="list-group-item ListItem">
+                <a className="Student" href="#" onClick={this.handleClick}>{user._id}-{user.name}-{user.age}-{user.university}</a>
+              </li>)
           }
+          </ul>
           <br/>
+          <div className="WorkBlock">
             <Button variant="outline-primary"onClick={this.addDataClick}>Add Data</Button>
             <Button variant="outline-primary" onClick={this.changeDataClick}>Change Data</Button>
             <Button variant="outline-primary" onClick={this.removeDataClick}> Remove Data</Button>
-          <div>
+          </div>
+          <div className="FormBlock">
             {component}
           </div>
        </div>

@@ -35,7 +35,7 @@ export default function AddComponent() {
 
   return (
         <div>
-          <h1>Add Data</h1>
+          <label>Add Data</label>
           <form name="AddForm" onSubmit={AddFormListener}>
             <label>Name</label><br/>
             <input type="text" name="NumOne" /><br/><br/>
@@ -43,7 +43,7 @@ export default function AddComponent() {
             <input type="number" name="NumTwo" /><br/><br/>
             <label>University</label><br/>
             <input type="text" name="NumThree" /><br/><br/>
-            <input type="submit" value="Add" />
+            <input type="submit" value="Add Student" className="btn btn-dark"/>
           </form>
        </div>
   );
