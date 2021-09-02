@@ -1,0 +1,5 @@
+.DataPage {
+    background-image: linear-gradient(red, yellow, green);
+    position: relative;
+    min-height: 80%;
+}

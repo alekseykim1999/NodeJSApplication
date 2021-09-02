@@ -3,6 +3,8 @@ import EditComponent from './EditComponent';
 import AddComponent from './AddComponent';
 import { ReactDOM } from 'react';
 import { ZERO_MODE, ADD_MODE, RMV_MODE, CHG_MODE } from '../../const/const';
+import Button from 'react-bootstrap/Button';
+import './DataPage.css';
 export default class DataPage extends Component 
 {
 
@@ -126,7 +128,7 @@ export default class DataPage extends Component
       }
 
       return (
-        <div>
+        <div className="DataPage">
           <br/>
           {
             this.state.data.map(user=>
@@ -136,9 +138,9 @@ export default class DataPage extends Component
               </div>)
           }
           <br/>
-            <button onClick={this.addDataClick}>Add Data</button>
-            <button onClick={this.changeDataClick}>Change Data</button>
-            <button onClick={this.removeDataClick}> Remove Data</button>
+            <Button variant="outline-primary"onClick={this.addDataClick}>Add Data</Button>
+            <Button variant="outline-primary" onClick={this.changeDataClick}>Change Data</Button>
+            <Button variant="outline-primary" onClick={this.removeDataClick}> Remove Data</Button>
           <div>
             {component}
           </div>
