@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 export default function AddComponent() {
   
@@ -27,7 +27,6 @@ export default function AddComponent() {
     });
     if (response.ok === true) 
     {
-        const user = await response.json();
         window.location.reload();
     }
   }

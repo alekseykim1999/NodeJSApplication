@@ -24,3 +24,31 @@ db.Students.find() - вывести все данные
 Нужно также создать папку по пути
 C:\data\db
 
+-Путь к клиенту (для Docker)
+E:/Гайды/Проект/react-web-app/client
+
+
+
+$ docker run \
+    -itd \
+    --rm \
+    -v %cd%:/client \
+    -v /client/node_modules \
+    -p 3001:3000 \
+    -e CHOKIDAR_USEPOLLING=true \
+    sample:dev
+
+docker run \
+    -it \
+    --rm \
+    -v ${PWD} \
+    -v /app/node_modules \
+    -p 3000:3001 \
+    -e CHOKIDAR_USEPOLLING=true \
+    sample
+
+
+docker run -it -p 3000:3000 lucki
+
+
+docker container run -it -p 3050:3000 -d sample 

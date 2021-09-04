@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const EditComponent = (props) => {
 
@@ -17,7 +17,7 @@ const EditComponent = (props) => {
   async function EditUser(id, userName, userAge, userUniversity) 
   {
 
-    if(id!=null && id!=undefined)
+    if(id!==null && id!==undefined)
     {
       const response = await fetch("/chgData/" + id, 
       {
@@ -43,7 +43,7 @@ const EditComponent = (props) => {
 
   return (
         <div>
-          <label>Edit Data for ID {props.user?._id}</label>
+          <label>Edit Data for ID {props.user?._id} ({props.user?.name})</label>
           <form name="EditForm" onSubmit={EditFormListener}>
             <label>Name</label><br/>
             <input type="text" name="NumOne" defaultValue={props.user?.name} 
